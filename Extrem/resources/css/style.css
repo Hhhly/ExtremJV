@@ -1,0 +1,212 @@
+/** Font supplémenaires**/
+@font-face {
+    font-family: Lato;
+    src: url('../font/Lato-Regular.ttf');
+}
+
+@font-face {
+    font-family: FontAwesome;
+    src: url('../font/Font-Awesome.ttf');
+}
+
+/* Lissage des typos */
+.text{
+    -fx-font-smoothing-type: gray;
+}
+
+/** Les variables **/
+* {
+	-fx-orangeMoyen : #FA7252;
+	-fx-orange-blockProfil : #DE5939;
+	-fx-orange-blockProfil-icon : #993F31;
+	-fx-blockProfil-icon-separator : rgba(207.0, 77.0, 48.0, 0.6);
+	-fx-fondMenu : #273135;
+	-fx-fondCentre : #E9F0F5;
+}
+
+
+/** Partie informations **/
+.InformationsStripe {
+	-fx-background-color: -fx-fondCentre;
+}
+.InformationsStripe Label{
+	-fx-text-fill: -fx-fondMenu;
+	-fx-font-family: "Lato";
+	-fx-font-size: 16.0px;
+	-fx-padding: 0.0 20.0px;
+}
+
+/** Blocks de page (les 3 blocks du haut, et le contenu principal) **/
+.contentBlock {
+	-fx-background-color: #FFF;
+	-fx-padding: 15.0px;
+	-fx-background-radius: 0.0 0.0 5.0px 5.0px;
+}
+.contentBlockMargin {
+	-fx-padding: 0.0 10.0px 10.0px 10.0px;
+	-fx-effect: dropshadow(gaussian, rgba(0.0,0.0,0.0,0.15), 2.0px, -5.0px, 0.0, 0.0);
+}
+
+.headerBlock {
+	-fx-background-color: -fx-orangeMoyen;
+	-fx-padding: 10.0px;
+	-fx-background-radius: 3.0px 3.0px 0.0 0.0;
+}
+
+.headerBlock Label {
+	-fx-text-fill: #FFF;
+	-fx-font-family: "Lato";
+	-fx-font-size: 15.0px;
+}
+
+/** Block Profile **/
+.blockProfil {
+	-fx-background-color: -fx-orangeMoyen;
+}
+
+.blockProfil .glyphIcons {
+	-fx-font-size:26.0px;
+}
+
+.blockProfil Label{
+	-fx-text-fill: #FFF;
+	-fx-font-family: "Lato";
+	-fx-font-size: 15.0px;
+	-fx-font-weight: bold;
+}
+
+.blockProfil .blockProfilIconContainer .glyphIcons {
+	-fx-font-size: 35.0px;
+	-fx-font-family: "FontAwesome";
+	-fx-font-weight: bold;
+	-fx-padding: 0.0 0.0 1.0px 2.0px;
+	-fx-border-style: solid;
+	-fx-border-width: 1.0px;
+	-fx-background-color: -fx-orange-blockProfil;
+	-fx-text-fill: #FFF;
+	-fx-border-color: -fx-blockProfil-icon-separator;
+	-fx-background-radius: 100.0px;
+	-fx-border-radius: 100.0px;
+}
+
+.blockProfil .blockProfilIconContainer {
+	-fx-padding:0.0 10.0px;
+}
+
+.blockProfilIcons .glyphIcons.menuActive {
+	-fx-background-color: -fx-orange-blockProfil-icon;
+	-fx-text-fill: -fx-orangeMoyen;
+	-fx-padding:0.0;
+}
+
+.blockProfilIcons {
+	-fx-background-color: -fx-orange-blockProfil;
+}
+
+.blockProfilIcons .glyphIcons {
+	-fx-font-size: 17.0px;
+	-fx-border-style: solid;
+	-fx-border-color: -fx-blockProfil-icon-separator;
+	-fx-border-width: 1.0px;
+}
+
+.blockProfilIcons .glyphIcons:hover {
+	-fx-background-color: rgba(0.0, 0.0, 0.0, 0.05);
+}
+
+.blockProfilIcons Label {
+	-fx-text-fill: -fx-orange-blockProfil-icon;
+}
+
+/* Menu gauche */
+.menuGauche {
+	-fx-padding: 25.0px 0.0px;
+}
+
+.menuGauche .menuGaucheLine {
+	-fx-padding: 10.0px 0.0;
+}
+
+.menuGauche .menuGaucheLine:hover {
+	-fx-background-color:rgba(0.0, 0.0, 0.0, 0.2);
+}
+
+.menuGauche Label{
+	-fx-font-size: 16.0px;
+	-fx-font-family: "Lato";
+	-fx-pref-height: 35.0px;
+	-fx-min-height: 35.0px;
+	-fx-max-height: 35.0px;
+}
+
+.menuGauche .glyphIcons {
+	-fx-font-size:26.0px;
+	-fx-padding:0.0 15.0px 0.0 15.0px;
+}
+
+.menuGauche .titreMenu {
+	-fx-padding:0.0 15.0px;
+}
+
+.menuGauche Label.titreMenu {
+	-fx-pref-height: 20.0px;
+	-fx-min-height: 20.0px;
+	-fx-max-height: 20.0px;
+	-fx-font-size: 12.0px;
+	-fx-text-fill: rgba(137.0, 148.0, 155.0, 0.4);
+}
+
+.menuActive, menuGaucheLine:pressed {
+	-fx-background-color: rgba(0.0, 0.0, 0.0, 0.4);
+	-fx-border-width: 0.0 0.0 0.0 5.0px ;
+	-fx-padding: 0.0 0.0 0.0 -5.0px;
+  	-fx-border-color: #E76049;
+  	-fx-border-style: solid;
+}
+
+.separator {
+	-fx-padding: 0.0 15.0px;
+	-fx-pref-height: 35.0px;
+	-fx-min-height: 35.0px;
+	-fx-max-height: 35.0px;
+    -fx-skin: "com.sun.javafx.scene.control.skin.SeparatorSkin";
+    -fx-background: rgba(137.0, 148.0, 155.0, 0.4);
+}
+
+.separator .line {
+    -fx-border-style: solid;
+    -fx-border-width: 2.0px;
+}
+
+.separator:horizontal .line {
+    -fx-background-color: null;
+    -fx-border-color: derive(-fx-background,-20.0%) transparent transparent transparent;
+}
+
+/** Glyph icons **/
+.glyphIcons {
+	-fx-font-family: "FontAwesome";
+	-fx-font-weight: normal;
+
+}
+.iconDeconnexion {
+	-fx-font-size: 30.0px;
+	-fx-text-fill: #FFF;
+}
+.iconDeconnexionContainer {
+	-fx-padding: 25.0px;
+	-fx-background-color: -fx-orange-blockProfil;
+	-fx-pref-height: 70.0px;
+	-fx-min-height: 70.0px;
+	-fx-max-height: 70.0px;
+}
+
+
+/** Couleurs de fond **/
+.cadreGris {
+	-fx-background-color: -fx-fondMenu;
+}
+
+.fondGrisClair {
+	-fx-background-color: -fx-fondCentre;
+}
