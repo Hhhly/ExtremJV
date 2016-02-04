@@ -8,25 +8,30 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import outils.ExtremError;
 
-public class Main extends Application {
-
+public class Main extends Application
+{
 	@Override
-	public void start(Stage primaryStage) {
-		try {
+	public void start(Stage primaryStage)
+	{
+		try
+		{
 			Parent root = FXMLLoader.load(getClass().getResource("/view/main.fxml"));
-	        Scene scene = new Scene(root);
-	        scene.getStylesheets().add("/css/style.css");
+			Scene scene = new Scene(root);
+			scene.getStylesheets().add("/css/style.css");
 			primaryStage.centerOnScreen();
-			//primaryStage.setResizable(false);
+			primaryStage.setResizable(false);
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("Extrem JV");
 			primaryStage.show();
-		} catch (IOException e) {
+		}
+		catch (IOException e)
+		{
 			new ExtremError(e);
 		}
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args)
+	{
 		launch(args);
 	}
 }
