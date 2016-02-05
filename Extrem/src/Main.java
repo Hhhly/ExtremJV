@@ -1,4 +1,3 @@
-
 import java.io.IOException;
 
 import javafx.application.Application;
@@ -15,7 +14,7 @@ public class Main extends Application
 	{
 		try
 		{
-			Parent root = FXMLLoader.load(getClass().getResource("/view/main.fxml"));
+			Parent root = FXMLLoader.load(getClass().getResource("/views/main.fxml"));
 			Scene scene = new Scene(root);
 			scene.getStylesheets().add("/css/style.css");
 			primaryStage.centerOnScreen();
@@ -29,9 +28,10 @@ public class Main extends Application
 			new ExtremError(e);
 		}
 	}
-
+	
 	public static void main(String[] args)
 	{
+		System.out.println("ok");
 		launch(args);
 	}
 }
