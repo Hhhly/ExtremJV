@@ -6,7 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import outils.ExtremError;
+import utilitaires.ExtremError;
 
 public class Main extends Application
 {
