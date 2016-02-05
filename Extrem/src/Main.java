@@ -21,7 +21,7 @@ public class Main extends Application
 			primaryStage.centerOnScreen();
 			primaryStage.setResizable(false);
 			primaryStage.setScene(scene);
-			primaryStage.setTitle("efef");
+			primaryStage.setTitle("Extrem JV");
 			primaryStage.show();
 		}
 		catch (IOException e)
