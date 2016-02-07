@@ -8,31 +8,26 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.PrimaryKeyJoinColumn;
 
-import org.hibernate.Session;
-
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableSet;
+import utilitaires.bdd.CRUD;
 
 @Entity
 @PrimaryKeyJoinColumn(name = "idTiers")
 public class Employe extends Particulier
 {
-
-	/* *********************** *
-	 *       PROPRIETES        *
-	 * *********************** */
+	//Propriétés
 	private StringProperty	matricule		= new SimpleStringProperty("");
 	private StringProperty	nomUtilisateur	= new SimpleStringProperty("");
 	private StringProperty	motDePasse		= new SimpleStringProperty("");
 	private StringProperty	droits			= new SimpleStringProperty("");
 	private BooleanProperty	isActif			= new SimpleBooleanProperty(true);
 
-	/* *********************** *
-	 *        GETTERS          *
-	 * *********************** */
-
+	//Getters
 	@Column(nullable = false)
 	public String getMatricule()
 	{
@@ -88,10 +83,7 @@ public class Employe extends Particulier
 		return isActif;
 	}
 
-	/* *********************** *
-	 *         SETTERS         *
-	 * *********************** */
-
+	//Setters
 	public void setMatricule(String matricule)
 	{
 		this.matricule.set(matricule);
@@ -117,15 +109,12 @@ public class Employe extends Particulier
 		this.isActif.set(active);
 	}
 
-	/* *********************** *
-	 *      CONSTRUCTEURS      *
-	 * *********************** */
-
+	//Constructeurs
 	public Employe()
 	{
 	}
 
-	public Employe(String matricule, String nomUtilisateur, String motDePasse, String droits, String nom, String prenom, LocalDate dateNaissance, String telephone, String fax, String mail, Adresse adresse)
+	public Employe(String matricule, String nomUtilisateur, String motDePasse, String droits, String nom, String prenom, LocalDate dateNaissance, String telephone, String fax, String mail, ObservableSet<Adresse> adresses)
 	{
 		this.matricule.set(matricule);
 		this.nomUtilisateur.set(nomUtilisateur);
@@ -137,30 +126,33 @@ public class Employe extends Particulier
 		this.telephone.set(telephone);
 		this.fax.set(fax);
 		this.mail.set(mail);
-		this.adresse.set(adresse);
+		this.adresses = adresses;
 	}
 
-	/* ************************ *
-	 *      INITIALISATION      *
-	 * ************************ */
-
-	public static void generate(Session session) throws ParseException
+	//Génération
+	public static void generate() throws ParseException
 	{
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
 		//Génération du compte administrateurs
 		Adresse adresseAdmin = new Adresse("8 traverse de la dominique", "Les Naîades", "13011", "Marseille");
-		Employe employeAdmin = new Employe("AAN001", "Admin", "Admin", "Administrateur", "Sapone", "Alann", LocalDate.parse("10-10-1989", formatter), "0614498673", "", "sapone.alann@gmail.com", adresseAdmin);
-		session.saveOrUpdate(employeAdmin);
+		ObservableSet<Adresse> adressesAdmin = FXCollections.observableSet();
+		adressesAdmin.add(adresseAdmin);
+		Employe employeAdmin = new Employe("AAN001", "Admin", "Admin", "Administrateur", "Sapone", "Alann", LocalDate.parse("10-10-1989", formatter), "0614498673", "", "sapone.alann@gmail.com", adressesAdmin);
+		CRUD.saveOrUpdate(employeAdmin);
 
 		//Génération du compte manager
 		Adresse adresseManager = new Adresse("16 rue du tricot", "", "04220", "Corbières");
-		Employe employeManager = new Employe("MMR001", "Manager", "Manager", "Manager", "Begyn", "Philippe", LocalDate.parse("30-03-1988", formatter), "0782856192", "", "begyn.p@gmail.com", adresseManager);
-		session.saveOrUpdate(employeManager);
+		ObservableSet<Adresse> adressesManager = FXCollections.observableSet();
+		adressesManager.add(adresseManager);
+		Employe employeManager = new Employe("MMR001", "Manager", "Manager", "Manager", "Begyn", "Philippe", LocalDate.parse("30-03-1988", formatter), "0782856192", "", "begyn.p@gmail.com", adressesManager);
+		CRUD.saveOrUpdate(employeManager);
 
 		//Génération du compte Employé
 		Adresse adresseEmploye = new Adresse("8 rue du maréchal Pétain", "", "13290", "Aix-en-Provence");
-		Employe employeEmploye = new Employe("EEE001", "Employé", "Employé", "Employé", "Cullard", "Vincent", LocalDate.parse("20-03-1982", formatter), "0601107672", "", "vincent.cullard@yahoo.fr", adresseEmploye);
-		session.saveOrUpdate(employeEmploye);
+		ObservableSet<Adresse> adressesEmploye = FXCollections.observableSet();
+		adressesEmploye.add(adresseEmploye);
+		Employe employeEmploye = new Employe("EEE001", "Employé", "Employé", "Employé", "Cullard", "Vincent", LocalDate.parse("20-03-1982", formatter), "0601107672", "", "vincent.cullard@yahoo.fr", adressesEmploye);
+		CRUD.saveOrUpdate(employeEmploye);
 	}
 }

@@ -7,7 +7,7 @@
         <!--  Paramètres de connexion à la base de données -->
         <property name="dialect">org.hibernate.dialect.MySQL5InnoDBDialect</property>
         <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-        <property name="connection.url">jdbc:mysql://localhost:3306/pianissimo_v1?autoReconnect=true&amp;useUnicode=true&amp;createDatabaseIfNotExist=true&amp;characterEncoding=utf-8&amp;useSSL=false</property>
+        <property name="connection.url">jdbc:mysql://localhost:3306/extremjv?autoReconnect=true&amp;useUnicode=true&amp;createDatabaseIfNotExist=true&amp;characterEncoding=utf-8&amp;useSSL=false</property>
         <property name="connection.username">root</property>
         <property name="connection.password"></property>
 		<property name="connection.CharSet">utf8</property>
@@ -24,19 +24,20 @@
         <property name="current_session_context_class">thread</property>
         <property name="temp.use_jdbc_metadata_defaults">false</property>
 
-
 		<property name="show_sql">false</property>
 		<property name="generate_statistics">false</property>
 		<property name="use_sql_comments">false</property>
 
 
         <!-- Fichiers à mapper -->
-		<mapping class="model.Article"/>
-		<mapping class="model.ArticleImage"/>
-		<mapping class="model.Categorie"/>
-		<mapping class="model.Employe"/>
-		<mapping class="model.Organisme"/>
-		<mapping class="model.Particulier"/>
-		<mapping class="model.Tiers"/>
+		<mapping class="beans.Adresse"/>
+		<mapping class="beans.Article"/>
+		<mapping class="beans.ArticleImage"/>
+		<mapping class="beans.Categorie"/>
+		<mapping class="beans.Employe"/>
+		<mapping class="beans.Occasion"/>
+		<mapping class="beans.Organisme"/>
+		<mapping class="beans.Particulier"/>
+		<mapping class="beans.Tiers"/>
     </session-factory>
 </hibernate-configuration>

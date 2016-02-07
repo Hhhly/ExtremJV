@@ -4,132 +4,125 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import utilitaires.helpers.ViewHelper;
 
-public class MainController {
-
-	@FXML
-	private Label blockProfilIconEmploye;
-
-	@FXML
-	private Label blockProfilEmployeNom;
+public class MainController
+{
 
 	@FXML
-	private HBox topBar;
+	private Label		blockProfilIconEmploye;
 
 	@FXML
-	private Label iconDeconnexion;
+	private Label		blockProfilEmployeNom;
 
 	@FXML
-	private Label blockProfilIconMessagerie;
+	private HBox		topBar;
 
 	@FXML
-	private Label blockProfilIconStat;
+	private Label		iconDeconnexion;
 
 	@FXML
-	private Label blockProfilIconEvenements;
+	private Label		blockProfilIconMessagerie;
 
 	@FXML
-	private Label blockProfilIconParametres;
+	private Label		blockProfilIconStat;
 
 	@FXML
-	private VBox flashMessageContainer;
+	private Label		blockProfilIconEvenements;
 
 	@FXML
-	private Label flashMessageText;
+	private Label		blockProfilIconParametres;
 
 	@FXML
-	private VBox mainMenu;
+	private VBox		flashMessageContainer;
 
 	@FXML
-	private HBox clientMenu;
+	private Label		flashMessageText;
 
 	@FXML
-	private Label iconClient;
+	private VBox		mainMenu;
 
 	@FXML
-	private HBox articleMenu;
+	private HBox		clientMenu;
 
 	@FXML
-	private Label iconArticle;
+	private Label		iconClient;
 
 	@FXML
-	private HBox fournisseurMenu;
+	private HBox		articleMenu;
 
 	@FXML
-	private Label iconFournisseur;
+	private Label		iconArticle;
 
 	@FXML
-	private HBox employesMenu;
+	private HBox		fournisseurMenu;
 
 	@FXML
-	private Label iconEmploye;
+	private Label		iconFournisseur;
 
 	@FXML
-	private HBox evenementsMenu;
+	private HBox		employesMenu;
 
 	@FXML
-	private Label iconEvenement;
+	private Label		iconEmploye;
 
 	@FXML
-	private HBox calendrierMenu;
+	private HBox		evenementsMenu;
 
 	@FXML
-	private Label iconCalendrier;
+	private Label		iconEvenement;
 
 	@FXML
-	private HBox statistiquesMenu;
+	private HBox		calendrierMenu;
 
 	@FXML
-	private Label iconStatistiques;
+	private Label		iconCalendrier;
 
 	@FXML
-	private HBox parametresMenu;
+	private HBox		statistiquesMenu;
 
 	@FXML
-	private Label iconParametres;
+	private Label		iconStatistiques;
 
 	@FXML
-	private Label block1Text;
+	private HBox		parametresMenu;
 
 	@FXML
-	private AnchorPane block1;
+	private Label		iconParametres;
 
 	@FXML
-	private Label block2Text;
+	private Label		block1Text;
 
 	@FXML
-	private AnchorPane block2;
+	private StackPane	block1;
 
 	@FXML
-	private Label block3Text;
+	private Label		block2Text;
 
 	@FXML
-	private AnchorPane block3;
+	private StackPane	block2;
 
 	@FXML
-	private Label blockContentText;
+	private Label		block3Text;
 
 	@FXML
-	private AnchorPane blockContent;
+	private StackPane	block3;
 
 	@FXML
-	private static MainController instance;
-
-	public static MainController getInstance() {
-		return instance;
-	}
-
-	private static Node activeMenu;
+	private Label		blockContentText;
 
 	@FXML
-	public void initialize() {
-		// Instantiation du Singleton
-		if (instance == null)
-			instance = this;
+	private StackPane	blockContent;
 
+	//Menu actif
+	private Node		activeMenu;
+
+	@FXML
+	public void initialize()
+	{
 		// Définition des GlyphsIcon
 		// Block profil
 		blockProfilIconEmploye.setText("\uf21b");
@@ -152,88 +145,35 @@ public class MainController {
 		iconParametres.setText("\uf0ad");
 	}
 
+	@FXML
+	private void onDeconnexionMenuClicked()
+	{
+		System.out.println("Déco");
+	}
+
+	@FXML
+	private void onAccueilMenuClicked()
+	{
+		System.out.println("Accueil");
+	}
+
+	@FXML
+	void onMenuClicked(MouseEvent event)
+	{
+		if (event.getSource().equals(articleMenu))
+		{
+			ViewHelper.switchView(blockContent, "articles");
+			changeStyle((Node) event.getSource(), activeMenu);
+		}
+	}
+
 	/*** Application du style sur les HBox du MainMenu ***/
-
-	public static void changeStyle(Node node) {
-
+	public static void changeStyle(Node node, Node activeMenu)
+	{
 		if (activeMenu != null)
 			activeMenu.getStyleClass().remove("menuActive");
 
+		node.getStyleClass().add("menuActive");
 		activeMenu = node;
-		activeMenu.getStyleClass().add("menuActive");
-
-		System.out.println(node);
 	}
-
-	@FXML
-	void onAccueuilMenuClicked(MouseEvent event) {
-
-	}
-
-	@FXML
-	void onBlockProfilIconEvenementsClicked(MouseEvent event) {
-		changeStyle(blockProfilIconEvenements);
-	}
-
-	@FXML
-	void onBlockProfilIconMessagerieClicked(MouseEvent event) {
-		changeStyle(blockProfilIconMessagerie);
-	}
-
-	@FXML
-	void onBlockProfilIconParametresClicked(MouseEvent event) {
-		changeStyle(blockProfilIconParametres);
-	}
-
-	@FXML
-	void onBlockProfilIconStatClicked(MouseEvent event) {
-		changeStyle(blockProfilIconStat);
-	}
-
-	@FXML
-	void onDeconnexionMenuClicked(MouseEvent event) {
-
-	}
-
-	@FXML
-	void onClientMenuClicked(MouseEvent event) {
-		changeStyle(clientMenu);
-
-	}
-
-	@FXML
-	void onArticleMenuClicked(MouseEvent event) {
-		changeStyle(articleMenu);
-	}
-
-	@FXML
-	void onFournisseurMenuClicked(MouseEvent event) {
-		changeStyle(fournisseurMenu);
-	}
-
-	@FXML
-	void onEmployesMenuClicked(MouseEvent event) {
-		changeStyle(employesMenu);
-	}
-
-	@FXML
-	void onEvenementsMenuClicked(MouseEvent event) {
-		changeStyle(evenementsMenu);
-	}
-
-	@FXML
-	void onCalendrierMenuClicked(MouseEvent event) {
-		changeStyle(calendrierMenu);
-	}
-
-	@FXML
-	void onStatistiquesMenuClicked(MouseEvent event) {
-		changeStyle(statistiquesMenu);
-	}
-
-	@FXML
-	void onParametresMenuClicked(MouseEvent event) {
-		changeStyle(parametresMenu);
-	}
-
 }

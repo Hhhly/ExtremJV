@@ -8,13 +8,14 @@ import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.PrimaryKeyJoinColumn;
 
-import org.hibernate.Session;
-
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableSet;
 import utilitaires.LocalDateConverter;
+import utilitaires.bdd.CRUD;
 
 @Entity
 @PrimaryKeyJoinColumn(name = "idTiers")
@@ -81,7 +82,7 @@ public class Particulier extends Tiers
 	{
 	}
 
-	public Particulier(String nom, String prenom, LocalDate dateNaissance, String telephone, String fax, String mail, Adresse adresse)
+	public Particulier(String nom, String prenom, LocalDate dateNaissance, String telephone, String fax, String mail, ObservableSet<Adresse> adresses)
 	{
 		this.nom.set(nom);
 		this.prenom.set(prenom);
@@ -89,17 +90,21 @@ public class Particulier extends Tiers
 		this.telephone.set(telephone);
 		this.fax.set(fax);
 		this.mail.set(mail);
-		this.adresse.set(adresse);
+		this.adresses = adresses;
 	}
 
 	//Génération
-	public static void generate(Session session) throws Exception
+	public static void generate() throws Exception
 	{
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
-		Adresse adresseParticulier = new Adresse("Rue des merles", "", "75422", "Paris");
-		Particulier particulier = new Particulier("Medico", "Julien", LocalDate.parse("05-10-1982", formatter), "0614498674", "", "client1@gmail.com", adresseParticulier);
-		session.save(particulier);
+		Adresse adresseParticulier = new Adresse("12 Rue des merles", "", "75422", "Paris");
+		Adresse adresseParticulier2 = new Adresse(" 15 impasse des choux", "société géniale", "75000", "Paris");
+		ObservableSet<Adresse> adressesParticulier = FXCollections.observableSet();
+		adressesParticulier.add(adresseParticulier);
+		adressesParticulier.add(adresseParticulier2);
+		Particulier particulier = new Particulier("Medico", "Julien", LocalDate.parse("05-10-1982", formatter), "0614498674", "", "client1@gmail.com", adressesParticulier);
+		CRUD.save(particulier);
 	}
 
 	//Autres

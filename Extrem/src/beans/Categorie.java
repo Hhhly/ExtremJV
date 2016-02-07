@@ -11,12 +11,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
-import org.hibernate.Session;
-
 import javafx.beans.property.LongProperty;
 import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import utilitaires.bdd.CRUD;
 
 @Entity
 public class Categorie
@@ -106,33 +105,33 @@ public class Categorie
 	}
 
 	//Génération
-	public static void generate(Session session)
+	public static void generate()
 	{
-		//Catégorie Jeux
-		Categorie jeux = new Categorie("Jeux", 1, null);
-			Categorie jeuxPS4 = new Categorie("PS4", 1, jeux);
-			Categorie jeuxXBoxOne = new Categorie("XBox One", 2, jeux);
-
-		session.save(jeux);
-			session.save(jeuxPS4);
-			session.save(jeuxXBoxOne);
-
 		//Catégorie Consoles
 		Categorie consoles = new Categorie("Consoles", 2, null);
-			Categorie consolePS4 = new Categorie("PS4", 1, consoles);
-			Categorie consoleXBoxOne = new Categorie("XBox One", 2, consoles);
+		Categorie consolePS4 = new Categorie("PS4", 1, consoles);
+		Categorie consoleXBoxOne = new Categorie("XBox One", 2, consoles);
 
-		session.save(consoles);
-			session.save(consolePS4);
-			session.save(consoleXBoxOne);
+		CRUD.save(consoles);
+		CRUD.save(consolePS4);
+		CRUD.save(consoleXBoxOne);
+
+		//Catégorie Jeux
+		Categorie jeux = new Categorie("Jeux", 1, null);
+		Categorie jeuxPS4 = new Categorie("PS4", 1, jeux);
+		Categorie jeuxXBoxOne = new Categorie("XBox One", 2, jeux);
+
+		CRUD.save(jeux);
+		CRUD.save(jeuxPS4);
+		CRUD.save(jeuxXBoxOne);
 
 		//Catégorie Accessoires
 		Categorie accessoires = new Categorie("Accessoires", 3, null);
-			Categorie accessoirePS4 = new Categorie("PS4", 3, null);
-			Categorie accessoireXBoxOne = new Categorie("XBox One", 3, null);
+		Categorie accessoirePS4 = new Categorie("PS4", 1, accessoires);
+		Categorie accessoireXBoxOne = new Categorie("XBox One", 2, accessoires);
 
-		session.save(accessoires);
-			session.save(accessoirePS4);
-			session.save(accessoireXBoxOne);
+		CRUD.save(accessoires);
+		CRUD.save(accessoirePS4);
+		CRUD.save(accessoireXBoxOne);
 	}
 }

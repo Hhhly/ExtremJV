@@ -1,9 +1,10 @@
-package utilitaires;
+package utilitaires.bdd;
 
 import java.util.List;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.criterion.Projections;
 
 public class CRUD
 {
@@ -23,10 +24,24 @@ public class CRUD
 		session.close();
 	}
 
+	public static <T> long count(Class<T> type)
+	{
+		Session session = DBConnector.getSession();
+		long count = 0;
+		try
+		{
+			count = ((Number)session.createCriteria(type).setProjection(Projections.rowCount()).uniqueResult()).longValue();
+		}
+		catch (Exception e)
+		{
+			count = -1;
+		}
+		return count;
+	}
+
 	public static <T> T get(Class<T> type, Long id)
 	{
 		Session session = DBConnector.getSession();
-
 		T toReturn = session.get(type, id);
 		session.close();
 		return toReturn;

@@ -1,5 +1,9 @@
 package beans;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,12 +11,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import javafx.beans.property.LongProperty;
-import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleLongProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -23,11 +27,11 @@ public class Tiers
 {
 
 	//Propriétés
-	protected LongProperty				id		= new SimpleLongProperty(-1);
-	protected StringProperty			telephone	= new SimpleStringProperty("");
-	protected StringProperty			fax		= new SimpleStringProperty("");
-	protected StringProperty			mail		= new SimpleStringProperty("");
-	protected ObjectProperty<Adresse>	adresse	= new SimpleObjectProperty<>();
+	protected LongProperty		id			= new SimpleLongProperty(-1);
+	protected StringProperty	telephone	= new SimpleStringProperty("");
+	protected StringProperty	fax			= new SimpleStringProperty("");
+	protected StringProperty	mail		= new SimpleStringProperty("");
+	protected Set<Adresse>		adresses	= new HashSet<>();
 
 	//Getters
 	@Id
@@ -70,15 +74,16 @@ public class Tiers
 		return mail;
 	}
 
-	@Column(nullable = false)
-	public Adresse getAdresse()
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "idTiers")
+	public Set<Adresse> getAdresses()
 	{
-		return adresse.get();
+		return adresses;
 	}
 
-	public ObjectProperty<Adresse> adresseProperty()
+	public Set<Adresse> adressesProperty()
 	{
-		return adresse;
+		return adresses;
 	}
 
 	//Setters
@@ -102,9 +107,9 @@ public class Tiers
 		this.mail.set(mail);
 	}
 
-	public void setAdresse(Adresse adresse)
+	public void setAdresses(Set<Adresse> adresses)
 	{
-		this.adresse.set(adresse);
+		this.adresses = adresses;
 	}
 
 	//Constructeurs
@@ -113,11 +118,11 @@ public class Tiers
 
 	}
 
-	public Tiers(String telephone, String fax, String mail, Adresse adresse)
+	public Tiers(String telephone, String fax, String mail, Set<Adresse> adresses)
 	{
 		this.telephone.set(telephone);
 		this.fax.set(fax);
 		this.mail.set(mail);
-		this.adresse.set(adresse);
+		this.adresses = adresses;
 	}
 }

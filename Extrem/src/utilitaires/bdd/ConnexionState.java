@@ -1,4 +1,4 @@
-package utilitaires;
+package utilitaires.bdd;
 
 public enum ConnexionState
 {

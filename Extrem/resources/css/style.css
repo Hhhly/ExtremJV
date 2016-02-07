@@ -210,3 +210,12 @@
 .fondGrisClair {
 	-fx-background-color: -fx-fondCentre;
 }
+
+/** Block central **/
+.gridPaneContainer {
+	-fx-padding: 15px 0 0 0;
+}
+
+HBox.articlesView {
+	-fx-spacing: 15px;
+}

@@ -4,10 +4,11 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.PrimaryKeyJoinColumn;
 
-import org.hibernate.Session;
-
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableSet;
+import utilitaires.bdd.CRUD;
 
 @Entity
 @PrimaryKeyJoinColumn(name = "idTiers")
@@ -46,26 +47,29 @@ public class Organisme extends Tiers
 	{
 	}
 
-	public Organisme(String raisonSociale, String typeOrganisme, String telephone, String fax, String mail, Adresse adresse)
+	public Organisme(String raisonSociale, String typeOrganisme, String telephone, String fax, String mail, ObservableSet<Adresse> adresses)
 	{
 		this.raisonSociale.set(raisonSociale);
 		this.typeOrganisme.set(typeOrganisme);
 		this.telephone.set(telephone);
 		this.fax.set(fax);
 		this.mail.set(mail);
-		this.adresse.set(adresse);
+		this.adresses = adresses;
 	}
 
 	//Générateur
-	public static void generate(Session session)
+	public static void generate()
 	{
-
 		Adresse adresseOrganisme = new Adresse("15 chemin des frêles", "", "15422", "Freodi");
-		Organisme organisme = new Organisme("Les tous petits", "Association", "0102030405", "", "musique-association@gmail.com", adresseOrganisme);
-		session.save(organisme);
+		ObservableSet<Adresse> adressesOrganisme = FXCollections.observableSet();
+		adressesOrganisme.add(adresseOrganisme);
+		Organisme organisme = new Organisme("Les tous petits", "Association", "0102030405", "", "lestouspetits-association@gmail.com", adressesOrganisme);
+		CRUD.save(organisme);
 
 		Adresse adresseOrganisme2 = new Adresse("12 impasse du four", "", "12045", "Grenoble");
-		Organisme organisme2 = new Organisme("Musique entreprise", "Entreprise", "0605040302", "", "musique-entreprise@gmail.com", adresseOrganisme2);
-		session.save(organisme2);
+		ObservableSet<Adresse> adressesOrganisme2 = FXCollections.observableSet();
+		adressesOrganisme2.add(adresseOrganisme2);
+		Organisme organisme2 = new Organisme("Jeux-entreprise", "Entreprise", "0605040302", "", "jeux-entreprise@gmail.com", adressesOrganisme2);
+		CRUD.save(organisme2);
 	}
 }

@@ -1,5 +1,6 @@
 package beans;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -11,12 +12,9 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
-import org.hibernate.Session;
 
 import javafx.beans.property.FloatProperty;
 import javafx.beans.property.IntegerProperty;
@@ -26,6 +24,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import utilitaires.bdd.CRUD;
 
 @Entity
 @Table(name = "article")
@@ -36,10 +35,11 @@ public class Article
 	private LongProperty		id			= new SimpleLongProperty();
 	private StringProperty		libelle		= new SimpleStringProperty();
 	private StringProperty		description	= new SimpleStringProperty();
-	private Set<ArticleImage>	images;
+	private ArticleImage		vignette;
+	private Set<ArticleImage>	images		= new HashSet<>();
 	private FloatProperty		tauxTVA		= new SimpleFloatProperty();
 	private FloatProperty		prixTTC		= new SimpleFloatProperty();
-	private IntegerProperty		stock			= new SimpleIntegerProperty();
+	private IntegerProperty		stock		= new SimpleIntegerProperty();
 	private Categorie			categorie;
 	public static Article		instance;
 
@@ -72,8 +72,15 @@ public class Article
 		return description;
 	}
 
+	@OneToOne
+	@JoinColumn(name = "idVignette")
+	public ArticleImage getVignette()
+	{
+		return vignette;
+	}
+
 	@OneToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "Lien_Article_ArticleImage", joinColumns = @JoinColumn(name = "articleId") , inverseJoinColumns = @JoinColumn(name = "imageId") )
+	@JoinColumn(name = "idArticle")
 	public Set<ArticleImage> getImages()
 	{
 		return images;
@@ -136,6 +143,11 @@ public class Article
 		this.description.set(description);
 	}
 
+	public void setVignette(ArticleImage vignette)
+	{
+		this.vignette = vignette;
+	}
+
 	public void setImages(Set<ArticleImage> images)
 	{
 		this.images = images;
@@ -181,11 +193,71 @@ public class Article
 	}
 
 	//Générateur
-	public static void generate(Session session)
+	public static void generate()
 	{
-		/*
-		Article article1 = new Article("Piano à queue SAMICK SIG 48", "Piano de type crapaud de faible encombrement (146cm)...un prix incroyable", 20, 7790.000f, 3, 12000, (Categorie) session.get(Categorie.class, new Long(2)));
-		session.save(article1);
-		*/
+		//Console PS4
+		Article consolePS4 = new Article("Playstation 4", "", 20, 349.99f, 14, (Categorie) CRUD.get(Categorie.class, new Long(2)));
+		ArticleImage consolePS4Vignette = new ArticleImage("Consoles/PS4/Playstation4/ok2_1.jpg");
+		consolePS4.setVignette(consolePS4Vignette);
+		CRUD.save(consolePS4Vignette);
+		consolePS4.getImages().add(new ArticleImage("Consoles/PS4/Playstation4/psquatre1_1_3.jpg"));
+		consolePS4.getImages().add(new ArticleImage("Consoles/PS4/Playstation4/psquatre2_1.jpg"));
+		consolePS4.getImages().add(new ArticleImage("Consoles/PS4/Playstation4/psquatre3_1.jpg"));
+		CRUD.save(consolePS4);
+		
+		
+		//Console XBoxOne
+		Article consoleXBoxOne = new Article("Xbox One 500 Go", "", 20, 329.99f, 14, (Categorie) CRUD.get(Categorie.class, new Long(3)));
+		ArticleImage consoleXBoxOneVignette = new ArticleImage("Consoles/XBoxOne/XboxOne500Go/sans_titre-1_1_7.jpg");
+		consoleXBoxOne.setVignette(consoleXBoxOneVignette);
+		CRUD.save(consoleXBoxOneVignette);
+		consoleXBoxOne.getImages().add(new ArticleImage("Consoles/XBoxOne/XboxOne500Go/xbox_20one_console_f_tilt-1000.jpg"));
+		consoleXBoxOne.getImages().add(new ArticleImage("Consoles/XBoxOne/XboxOne500Go/xbox_20one_console_rhs78-1000.jpg"));
+		consoleXBoxOne.getImages().add(new ArticleImage("Consoles/XBoxOne/XboxOne500Go/xbox_controller_f_transbg_rgb_2013_3.jpg"));
+		CRUD.save(consoleXBoxOne);
+
+		//Jeux PS4
+		Article jeuxPS4_1 = new Article("Assassin's Creed Chronicle", "", 20, 29.99f, 17, (Categorie) CRUD.get(Categorie.class, new Long(5)));
+		jeuxPS4_1.getImages().add(new ArticleImage("Jeux/PS4/AssassinsCreedChronicle/ac_chronicles_trilogie_ps4.jpg"));
+		CRUD.save(jeuxPS4_1);
+
+		Article jeuxPS4_2 = new Article("Naruto Shippuden Ultimate Ninja Storm 4", "", 20, 49.99f, 19, (Categorie) CRUD.get(Categorie.class, new Long(5)));
+		jeuxPS4_2.getImages().add(new ArticleImage("Jeux/PS4/NarutoShippudenUltimateNinjaStorm4/naruto_uns_4_ps4.jpg"));
+		CRUD.save(jeuxPS4_2);
+
+		Article jeuxPS4_3 = new Article("The Witcher 3 Wild Hunt", "", 20, 49.99f, 14, (Categorie) CRUD.get(Categorie.class, new Long(5)));
+		jeuxPS4_3.getImages().add(new ArticleImage("Jeux/PS4/TheWitcher3WildHunt/the_witcher_3_ps4_3.jpg"));
+		CRUD.save(jeuxPS4_3);
+
+		//Jeux XBoxOne
+		Article jeuxXBoxOne1 = new Article("Agatha Christie The ABC Murders", "", 20, 39.99f, 3, (Categorie) CRUD.get(Categorie.class, new Long(6)));
+		jeuxXBoxOne1.getImages().add(new ArticleImage("Jeux/XBoxOne/AgathaChristieTheABCMurders/agatha_abc_one.jpg"));
+		CRUD.save(jeuxXBoxOne1);
+
+		Article jeuxXBoxOne2 = new Article("Sebastien Loeb Rally Evo", "", 20, 69.99f, 8, (Categorie) CRUD.get(Categorie.class, new Long(6)));
+		jeuxXBoxOne2.getImages().add(new ArticleImage("Jeux/XBoxOne/SebastienLoebRallyEvo/seb_loeb_one.jpg"));
+		CRUD.save(jeuxXBoxOne2);
+
+		Article jeuxXBoxOne3 = new Article("This War of Mine : The Little Ones", "", 20, 29.99f, 11, (Categorie) CRUD.get(Categorie.class, new Long(6)));
+		jeuxXBoxOne3.getImages().add(new ArticleImage("Jeux/XBoxOne/ThisWarofMineTheLittleOnes/this_war_of_mine_the_little_ones.jpg"));
+		CRUD.save(jeuxXBoxOne3);
+
+		//Accessoires PS4
+		Article accessoirePS4 = new Article("Arcade Fightstick TE2 Street Fighter V - Chun Li", "", 20, 249.99f, 6, (Categorie) CRUD.get(Categorie.class, new Long(8)));
+		accessoirePS4.getImages().add(new ArticleImage("Accessoires/PS4/ArcadeFightstickTE2StreetFighterVChunLi/stick_te2_chun_li_1_2.jpg"));
+		accessoirePS4.getImages().add(new ArticleImage("Accessoires/PS4/ArcadeFightstickTE2StreetFighterVChunLi/stick_te2_chun_li_2.jpg"));
+		accessoirePS4.getImages().add(new ArticleImage("Accessoires/PS4/ArcadeFightstickTE2StreetFighterVChunLi/stick_te2_chun_li_3.jpg"));
+		accessoirePS4.getImages().add(new ArticleImage("Accessoires/PS4/ArcadeFightstickTE2StreetFighterVChunLi/stick_te2_chun_li_4.jpg"));
+		accessoirePS4.getImages().add(new ArticleImage("Accessoires/PS4/ArcadeFightstickTE2StreetFighterVChunLi/stick_te2_chun_li_5.jpg"));
+		CRUD.save(accessoirePS4);
+
+		//Accessoires XBoxOne
+		Article accessoireXboxOne = new Article("Manette Filaire Afterglow Prismatic", "", 20, 49.99f, 6, (Categorie) CRUD.get(Categorie.class, new Long(9)));
+		accessoireXboxOne.getImages().add(new ArticleImage("Accessoires/XBoxOne/ManetteFilaireAfterglowPrismatic/manette_afterglow_prismatic_1.jpg"));
+		accessoireXboxOne.getImages().add(new ArticleImage("Accessoires/XBoxOne/ManetteFilaireAfterglowPrismatic/manette_afterglow_prismatic_3.jpg"));
+		accessoireXboxOne.getImages().add(new ArticleImage("Accessoires/XBoxOne/ManetteFilaireAfterglowPrismatic/manette_afterglow_prismatic_4.jpg"));
+		accessoireXboxOne.getImages().add(new ArticleImage("Accessoires/XBoxOne/ManetteFilaireAfterglowPrismatic/manette_afterglow_prismatic_0_1.jpg"));
+		CRUD.save(accessoireXboxOne);
+		
 	}
 }

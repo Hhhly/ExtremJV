@@ -1,8 +1,14 @@
 package beans;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
+import javafx.beans.property.LongProperty;
+import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -11,12 +17,21 @@ import javafx.beans.property.StringProperty;
 public class Adresse
 {
 	//Propriétés
-	private StringProperty	adresse1		= new SimpleStringProperty();
-	private StringProperty	adresse2		= new SimpleStringProperty();
+	protected LongProperty	id			= new SimpleLongProperty(-1);
+	private StringProperty	adresse1	= new SimpleStringProperty();
+	private StringProperty	adresse2	= new SimpleStringProperty();
 	private StringProperty	ville		= new SimpleStringProperty();
 	private StringProperty	codePostal	= new SimpleStringProperty();
 
 	//Getters
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	public long getId()
+	{
+		return id.get();
+	}
+	
+	@Column(nullable = false)
 	public String getAdresse1()
 	{
 		return adresse1.get();
@@ -37,6 +52,7 @@ public class Adresse
 		return adresse2;
 	}
 
+	@Column(nullable = false)
 	public String getVille()
 	{
 		return ville.get();
@@ -47,6 +63,7 @@ public class Adresse
 		return ville;
 	}
 
+	@Column(nullable = false)
 	public String getCodePostal()
 	{
 		return codePostal.get();
@@ -58,6 +75,11 @@ public class Adresse
 	}
 
 	//Setters
+	public void setId(long id)
+	{
+		this.id.set(id);
+	}
+	
 	public void setAdresse1(String adresse1)
 	{
 		this.adresse1.set(adresse1);
