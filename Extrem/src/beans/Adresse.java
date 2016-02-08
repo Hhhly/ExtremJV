@@ -13,7 +13,6 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 @Entity
-@Table(name = "adresse")
 public class Adresse
 {
 	//Propriétés
@@ -30,7 +29,7 @@ public class Adresse
 	{
 		return id.get();
 	}
-	
+
 	@Column(nullable = false)
 	public String getAdresse1()
 	{
@@ -79,7 +78,7 @@ public class Adresse
 	{
 		this.id.set(id);
 	}
-	
+
 	public void setAdresse1(String adresse1)
 	{
 		this.adresse1.set(adresse1);

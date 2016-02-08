@@ -25,19 +25,19 @@ import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import utilitaires.bdd.CRUD;
+import utilitaires.bdd.DB;
 
 @Entity
 @Table(name = "occasion")
 public class Occasion
 {
 	//Propriétés
-	private LongProperty					id			= new SimpleLongProperty();
-	private ObjectProperty<OccasionEtat>	etat		= new SimpleObjectProperty<>();
+	private LongProperty					id				= new SimpleLongProperty();
+	private ObjectProperty<OccasionEtat>	etat			= new SimpleObjectProperty<>();
 	private StringProperty					description	= new SimpleStringProperty();
 	private FloatProperty					prixTTC		= new SimpleFloatProperty();
 	private FloatProperty					tauxTVA		= new SimpleFloatProperty();
-	private Set<ArticleImage>				images		= new HashSet<>();
+	private Set<ArticleImage>				images			= new HashSet<>();
 	private Article							article;
 
 	//Getters
@@ -155,12 +155,13 @@ public class Occasion
 	//Générateur
 	public static void generate()
 	{
-		Occasion occasion1 = new Occasion(OccasionEtat.BON, "", 29.99f, 20, CRUD.get(Article.class, 1l));
-		CRUD.save(occasion1);
+		Occasion occasion1 = new Occasion(OccasionEtat.CORRECT, "", 29.99f, 20, DB.read(Article.class, 1l));
+		DB.create(occasion1);
 
-		Occasion occasion2 = new Occasion(OccasionEtat.COMME_NEUF, "Le livret n'est pas disponible", 35f, 20, CRUD.get(Article.class, 5l));
+		Occasion occasion2 = new Occasion(OccasionEtat.COMME_NEUF, "Le livret n'est pas disponible", 35f, 20, DB.read(Article.class, 5l));
 		Set<ArticleImage> imagesOccasion2 = new HashSet<>();
 		imagesOccasion2.add(new ArticleImage("Jeux/PS4/TheWitcher3WildHunt/Occasions/f40423159426790ef8e580a4bfaa62a54cd36e0b.jpg"));
-		CRUD.save(occasion2);
+		occasion2.setImages(imagesOccasion2);
+		DB.create(occasion2);
 	}
 }

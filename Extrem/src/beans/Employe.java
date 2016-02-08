@@ -14,7 +14,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableSet;
-import utilitaires.bdd.CRUD;
+import utilitaires.bdd.DB;
 
 @Entity
 @PrimaryKeyJoinColumn(name = "idTiers")
@@ -139,20 +139,20 @@ public class Employe extends Particulier
 		ObservableSet<Adresse> adressesAdmin = FXCollections.observableSet();
 		adressesAdmin.add(adresseAdmin);
 		Employe employeAdmin = new Employe("AAN001", "Admin", "Admin", "Administrateur", "Sapone", "Alann", LocalDate.parse("10-10-1989", formatter), "0614498673", "", "sapone.alann@gmail.com", adressesAdmin);
-		CRUD.saveOrUpdate(employeAdmin);
+		DB.createOrUpdate(employeAdmin);
 
 		//Génération du compte manager
 		Adresse adresseManager = new Adresse("16 rue du tricot", "", "04220", "Corbières");
 		ObservableSet<Adresse> adressesManager = FXCollections.observableSet();
 		adressesManager.add(adresseManager);
 		Employe employeManager = new Employe("MMR001", "Manager", "Manager", "Manager", "Begyn", "Philippe", LocalDate.parse("30-03-1988", formatter), "0782856192", "", "begyn.p@gmail.com", adressesManager);
-		CRUD.saveOrUpdate(employeManager);
+		DB.createOrUpdate(employeManager);
 
 		//Génération du compte Employé
 		Adresse adresseEmploye = new Adresse("8 rue du maréchal Pétain", "", "13290", "Aix-en-Provence");
 		ObservableSet<Adresse> adressesEmploye = FXCollections.observableSet();
 		adressesEmploye.add(adresseEmploye);
 		Employe employeEmploye = new Employe("EEE001", "Employé", "Employé", "Employé", "Cullard", "Vincent", LocalDate.parse("20-03-1982", formatter), "0601107672", "", "vincent.cullard@yahoo.fr", adressesEmploye);
-		CRUD.saveOrUpdate(employeEmploye);
+		DB.createOrUpdate(employeEmploye);
 	}
 }

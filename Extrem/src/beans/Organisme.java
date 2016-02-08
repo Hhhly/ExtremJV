@@ -8,7 +8,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableSet;
-import utilitaires.bdd.CRUD;
+import utilitaires.bdd.DB;
 
 @Entity
 @PrimaryKeyJoinColumn(name = "idTiers")
@@ -64,12 +64,12 @@ public class Organisme extends Tiers
 		ObservableSet<Adresse> adressesOrganisme = FXCollections.observableSet();
 		adressesOrganisme.add(adresseOrganisme);
 		Organisme organisme = new Organisme("Les tous petits", "Association", "0102030405", "", "lestouspetits-association@gmail.com", adressesOrganisme);
-		CRUD.save(organisme);
+		DB.create(organisme);
 
 		Adresse adresseOrganisme2 = new Adresse("12 impasse du four", "", "12045", "Grenoble");
 		ObservableSet<Adresse> adressesOrganisme2 = FXCollections.observableSet();
 		adressesOrganisme2.add(adresseOrganisme2);
 		Organisme organisme2 = new Organisme("Jeux-entreprise", "Entreprise", "0605040302", "", "jeux-entreprise@gmail.com", adressesOrganisme2);
-		CRUD.save(organisme2);
+		DB.create(organisme2);
 	}
 }

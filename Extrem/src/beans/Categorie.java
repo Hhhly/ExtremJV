@@ -15,7 +15,7 @@ import javafx.beans.property.LongProperty;
 import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import utilitaires.bdd.CRUD;
+import utilitaires.bdd.DB;
 
 @Entity
 public class Categorie
@@ -108,30 +108,30 @@ public class Categorie
 	public static void generate()
 	{
 		//Catégorie Consoles
-		Categorie consoles = new Categorie("Consoles", 2, null);
+		Categorie consoles = new Categorie("Consoles", 1, null);
 		Categorie consolePS4 = new Categorie("PS4", 1, consoles);
 		Categorie consoleXBoxOne = new Categorie("XBox One", 2, consoles);
 
-		CRUD.save(consoles);
-		CRUD.save(consolePS4);
-		CRUD.save(consoleXBoxOne);
+		DB.create(consoles);
+		DB.create(consolePS4);
+		DB.create(consoleXBoxOne);
 
 		//Catégorie Jeux
-		Categorie jeux = new Categorie("Jeux", 1, null);
+		Categorie jeux = new Categorie("Jeux", 2, null);
 		Categorie jeuxPS4 = new Categorie("PS4", 1, jeux);
 		Categorie jeuxXBoxOne = new Categorie("XBox One", 2, jeux);
 
-		CRUD.save(jeux);
-		CRUD.save(jeuxPS4);
-		CRUD.save(jeuxXBoxOne);
+		DB.create(jeux);
+		DB.create(jeuxPS4);
+		DB.create(jeuxXBoxOne);
 
 		//Catégorie Accessoires
 		Categorie accessoires = new Categorie("Accessoires", 3, null);
 		Categorie accessoirePS4 = new Categorie("PS4", 1, accessoires);
 		Categorie accessoireXBoxOne = new Categorie("XBox One", 2, accessoires);
 
-		CRUD.save(accessoires);
-		CRUD.save(accessoirePS4);
-		CRUD.save(accessoireXBoxOne);
+		DB.create(accessoires);
+		DB.create(accessoirePS4);
+		DB.create(accessoireXBoxOne);
 	}
 }

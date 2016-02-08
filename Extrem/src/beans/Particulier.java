@@ -15,7 +15,7 @@ import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableSet;
 import utilitaires.LocalDateConverter;
-import utilitaires.bdd.CRUD;
+import utilitaires.bdd.DB;
 
 @Entity
 @PrimaryKeyJoinColumn(name = "idTiers")
@@ -99,12 +99,12 @@ public class Particulier extends Tiers
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
 		Adresse adresseParticulier = new Adresse("12 Rue des merles", "", "75422", "Paris");
-		Adresse adresseParticulier2 = new Adresse(" 15 impasse des choux", "société géniale", "75000", "Paris");
+		Adresse adresseParticulier2 = new Adresse("15 impasse des choux", "société géniale", "75000", "Paris");
 		ObservableSet<Adresse> adressesParticulier = FXCollections.observableSet();
 		adressesParticulier.add(adresseParticulier);
 		adressesParticulier.add(adresseParticulier2);
 		Particulier particulier = new Particulier("Medico", "Julien", LocalDate.parse("05-10-1982", formatter), "0614498674", "", "client1@gmail.com", adressesParticulier);
-		CRUD.save(particulier);
+		DB.create(particulier);
 	}
 
 	//Autres

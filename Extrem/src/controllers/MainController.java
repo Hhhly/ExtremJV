@@ -123,26 +123,7 @@ public class MainController
 	@FXML
 	public void initialize()
 	{
-		// Définition des GlyphsIcon
-		// Block profil
-		blockProfilIconEmploye.setText("\uf21b");
-		blockProfilIconMessagerie.setText("\uf086");
-		blockProfilIconStat.setText("\uf1fe");
-		blockProfilIconEvenements.setText("\uf091");
-		blockProfilIconParametres.setText("\uf0ad");
-
-		// TopBar
-		iconDeconnexion.setText("\uf011");
-
-		// MenuGauche
-		iconClient.setText("\uf007");
-		iconArticle.setText("\uf135");
-		iconFournisseur.setText("\uf0d1");
-		iconEvenement.setText("\uf091");
-		iconEmploye.setText("\uf21b");
-		iconCalendrier.setText("\uf073");
-		iconStatistiques.setText("\uf1fe");
-		iconParametres.setText("\uf0ad");
+		//TODO : Enregistrement des liens des menus (EX: articleMenu -> new ViewCombinaison(3);&>
 	}
 
 	@FXML
@@ -163,17 +144,24 @@ public class MainController
 		if (event.getSource().equals(articleMenu))
 		{
 			ViewHelper.switchView(blockContent, "articles");
-			changeStyle((Node) event.getSource(), activeMenu);
 		}
+		else if (event.getSource().equals(employesMenu))
+		{
+			ViewHelper.switchView(blockContent, "employes");
+		}
+
+		updateActiveMenu();
 	}
 
 	/*** Application du style sur les HBox du MainMenu ***/
-	public static void changeStyle(Node node, Node activeMenu)
+	public void updateActiveMenu()
 	{
 		if (activeMenu != null)
 			activeMenu.getStyleClass().remove("menuActive");
 
-		node.getStyleClass().add("menuActive");
-		activeMenu = node;
+		System.out.println(ViewHelper.getLoadedViews());
+
+		//activeMenu = newActiveMenu;
+		//activeMenu.getStyleClass().add("menuActive");
 	}
 }
